@@ -1,0 +1,11 @@
+{
+  "presets": [
+    ["es2016"]
+  ],
+  "plugins": [
+    ["transform-runtime", {
+      "helpers": false,
+      "polyfill": false
+    }]
+  ]
+}
