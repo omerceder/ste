@@ -2,7 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import alias from 'whs/tools/alias';
 
-const isProduction = process.env.NODE_ENV === 'production';
+const ENV_PRODUCTION = process.env.NODE_ENV === 'production';
 
 const config = {
   entry: './app/main.js',
@@ -32,7 +32,7 @@ const config = {
     ]
   },
 
-  plugins: isProduction
+  plugins: ENV_PRODUCTION
     ? [
       new webpack.LoaderOptionsPlugin({
         minimize: true
