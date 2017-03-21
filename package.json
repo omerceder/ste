@@ -33,6 +33,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "physics-module-ammonext": "^0.1.2",
     "whs": "^2.0.0-beta.6"
   }
 }

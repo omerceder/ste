@@ -1,5 +1,9 @@
 // Core
 import {App} from '@whs/core/App';
+import {Sphere} from '@whs+meshes/Sphere';
+
+import {WorldModule} from '../node_modules/physics-module-ammonext/src/modules/WorldModule';
+import {SphereModule} from '../node_modules/physics-module-ammonext/src/modules/SphereModule';
 
 // Whitestorm
 import {
@@ -20,24 +24,45 @@ import {Plane} from '@whs+meshes/Plane';
 import {BasicComponent} from './components/BasicComponent';
 
 // Game Instance
-const game = new App([
-  new ElementModule({
-    container: document.getElementById('app')
-  }),
-  new SceneModule(),
-  new CameraModule({
-    position: {
-      z: -15
-    }
-  }),
-  new RenderingModule({bgColor: 0x000001}),
-  new OrbitModule()
+// const game = new App([
+//   new ElementModule({
+//     container: document.getElementById('app')
+//   }),
+//   new SceneModule(),
+//   new CameraModule({
+//     position: {
+//       z: -15
+//     }
+//   }),
+//   new RenderingModule({bgColor: 0x000001}),
+//   new OrbitModule()
+// ]);
+//
+// game.add(new BasicComponent({
+//   modules: [
+//     new FancyMaterialModule(game)
+//   ]
+// }));
+//
+// game.start();
+
+const app = new App([
+    // Other modules...
+    new WorldModule()
 ]);
 
-game.add(new BasicComponent({
-  modules: [
-    new FancyMaterialModule(game)
-  ]
-}));
+const sphere = new WHS.Sphere({
+    geometry: {
+        radius: 3
+    },
 
-game.start();
+    modules: [
+        new SphereModule({
+            mass: 10
+        })
+    ],
+
+    material: new THREE.MeshBasicMaterial({color: 0xff0000}) // red material
+});
+
+app.start(); // run animation
