@@ -2,8 +2,12 @@
 import {App} from '@whs/core/App';
 import {Sphere} from '@whs+meshes/Sphere';
 
+// Physics
 import {WorldModule} from '../node_modules/physics-module-ammonext/src/modules/WorldModule';
 import {SphereModule} from '../node_modules/physics-module-ammonext/src/modules/SphereModule';
+
+// THREE
+import {MeshBasicMaterial} from '../node_modules/three/src/materials/MeshBasicMaterial.js';
 
 // Whitestorm
 import {
@@ -51,7 +55,7 @@ const app = new App([
     new WorldModule()
 ]);
 
-const sphere = new WHS.Sphere({
+const sphere = new Sphere({
     geometry: {
         radius: 3
     },
@@ -62,7 +66,7 @@ const sphere = new WHS.Sphere({
         })
     ],
 
-    material: new THREE.MeshBasicMaterial({color: 0xff0000}) // red material
+    material: new MeshBasicMaterial({color: 0xff0000}) // red material
 });
 
 app.start(); // run animation
