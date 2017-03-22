@@ -1,6 +1,5 @@
 // Core
 import {App} from '@whs/core/App';
-import {Sphere} from '@whs+meshes/Sphere';
 
 // Physics
 import {WorldModule} from '../node_modules/physics-module-ammonext/src/modules/WorldModule';
@@ -23,6 +22,7 @@ import {
 
 // WHS Meshes
 import {
+    Sphere,
     Plane
 } from '@whs+meshes';
 
@@ -57,13 +57,20 @@ const game = new App([
 new BasicComponent({
     modules: [
         new FancyMaterialModule(game)
-    ]
+    ],
+    position: {
+        x: 0,
+        y: 10,
+        x: 0
+    },
 }).addTo(game);
 
 // Sphere + SphereModule
 new Sphere({
     geometry: {
-        radius: 3
+        radius: 4,
+        widthSegments: 32,
+        heightSegments: 24
     },
     position: {
         y: 70
@@ -75,7 +82,7 @@ new Sphere({
         })
     ],
 
-    material: new THREE.MeshBasicMaterial({color: 0xff0000}) // red material
+    material: new THREE.MeshNormalMaterial()
 }).addTo(game);
 
 // Plane
