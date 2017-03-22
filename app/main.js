@@ -28,34 +28,30 @@ import {Plane} from '@whs+meshes/Plane';
 import {BasicComponent} from './components/BasicComponent';
 
 // Game Instance
-// const game = new App([
-//   new ElementModule({
-//     container: document.getElementById('app')
-//   }),
-//   new SceneModule(),
-//   new CameraModule({
-//     position: {
-//       z: -15
-//     }
-//   }),
-//   new RenderingModule({bgColor: 0x000001}),
-//   new OrbitModule()
-// ]);
-//
-// game.add(new BasicComponent({
-//   modules: [
-//     new FancyMaterialModule(game)
-//   ]
-// }));
-//
-// game.start();
-
-const app = new App([
-    // Other modules...
-    new WorldModule()
+const game = new App([
+    new WorldModule({
+        ammo: 'http://localhost:8080/node_modules/three/examples/js/libs/ammo.js'
+    }),
+    new ElementModule({
+    container: document.getElementById('app')
+    }),
+    new SceneModule(),
+    new CameraModule({
+    position: {
+      z: -15
+    }
+    }),
+    new RenderingModule({bgColor: 0x000001}),
+new OrbitModule()
 ]);
 
-const sphere = new Sphere({
+game.add(new BasicComponent({
+  modules: [
+    new FancyMaterialModule(game)
+  ]
+}));
+
+game.add(new Sphere({
     geometry: {
         radius: 3
     },
@@ -67,6 +63,6 @@ const sphere = new Sphere({
     ],
 
     material: new MeshBasicMaterial({color: 0xff0000}) // red material
-});
+}));
 
-app.start(); // run animation
+game.start();
