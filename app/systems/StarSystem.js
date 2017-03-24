@@ -18,6 +18,7 @@ import {
  */
 export class StarSystem {
     /**
+     * Default constructor
      *
      * @param {CelestialFoundry} cf
      */
@@ -49,11 +50,21 @@ export class StarSystem {
         });
     }
 
+    /**
+     * Get system astronomical unit
+     *
+     * @return {*}
+     */
     au() {
         console.log(this);
         return this.cf.au();
     }
 
+    /**
+     * Add all system components to game
+     *
+     * @param game
+     */
     addTo(game) {
 
         this.star.addTo(game);
@@ -67,6 +78,12 @@ export class StarSystem {
         }
     }
 
+    /**
+     * Create system helper plane component
+     *
+     * @param {CelestialFoundry} cf
+     * @return {*}
+     */
     static createSystemHelperPlane(cf) {
         return new Plane({
             geometry: {
@@ -90,6 +107,12 @@ export class StarSystem {
         });
     }
 
+    /**
+     * Create system point light
+     *
+     * @param {CelestialFoundry} cf
+     * @return {*}
+     */
     static createSystemPointLight(cf) {
         return new PointLight({
             light: {
@@ -105,6 +128,11 @@ export class StarSystem {
         });
     }
 
+    /**
+     * Create star light (not working!)
+     *
+     * @return {*}
+     */
     static createStarLight() {
 
         return new HemisphereLight( 0xffffff, 0xffffff, 1.6 );
