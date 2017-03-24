@@ -10,7 +10,8 @@ import {
 } from '@whs+meshes';
 
 import {
-    PointLight
+    PointLight,
+    HemisphereLight
 } from '@whs+lights';
 
 const AU = 1.496 * Math.pow(10,8);
@@ -47,10 +48,25 @@ export class StarSystem {
         planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/170, AU/170, 12000)));
         
         this.planets = planets;
+
+        // Star Light
+        // this.star_system_light = StarSystem.createStarLight();
+
+        // System Plane
+        this.system_helper_plane = StarSystem.createSystemHelperPlane();
+
+        // System Lights
+        this.system_point_light = StarSystem.createSystemPointLight();
     }
 
     addTo(game) {
+
         this.star.addTo(game);
+
+        // this.star_system_light.addTo(game);
+        this.system_helper_plane.addTo(game);
+        this.system_point_light.addTo(game);
+
         for (const ps of this.planets) {
             ps.addTo(game);
         }
@@ -92,6 +108,17 @@ export class StarSystem {
 
             position: new THREE.Vector3(StarSystem.getAu()/100, StarSystem.getAu()/75, StarSystem.getAu()/100)
         });
+    }
+
+    static createStarLight() {
+
+        return new HemisphereLight( 0xffffff, 0xffffff, 1.6 );
+
+        // hemiLight.color.setHSL( 0.6, 1, 0.6 );
+        // hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+        // hemiLight.position.set( StarSystem.getAu()/70, StarSystem.getAu()/70, StarSystem.getAu()/70 );
+
+        // return hemiLight;
     }
 
     static getAu() {

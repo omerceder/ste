@@ -51,11 +51,6 @@ const game = new App([
 // Star System
 const star_system = new StarSystem();
 
-// System Plane
-const system_helper_plane = StarSystem.createSystemHelperPlane().addTo(game);
-// System Lights
-const system_point_light = StarSystem.createSystemPointLight().addTo(game);
-
 // Global light
 const global_ambient_light = new AmbientLight({
     light: {
