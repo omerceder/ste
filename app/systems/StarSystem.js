@@ -22,8 +22,9 @@ export class StarSystem {
      * @param {CelestialFoundry} cf
      */
     constructor(cf) {
+
         // Star
-        let star = cf.createStar();
+        let star = cf.createStar(cf.findStar('Sun'));
 
         // Planets
         const planets = cf.createPlanets(star);

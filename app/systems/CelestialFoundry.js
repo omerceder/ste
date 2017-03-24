@@ -96,6 +96,14 @@ export class CelestialFoundry {
         return this.system().planets[i];
     }
 
+    stars(i) {
+        if ( ! this.system().stars[i]) {
+            throw new Error(`[CelestialFoundry|ERROR]: No stars at index ${i} system schema '${this.defaultSystemKey}'`);
+        }
+
+        return this.system().stars[i];
+    }
+
     /**
      * Get Y plane coordinate from default system schema
      *
@@ -106,17 +114,33 @@ export class CelestialFoundry {
     }
 
     /**
+     * Find star in schema by name
+     *
+     * @param name
+     * @return {*}
+     */
+    findStar(name) {
+        let star_map = this.system().stars.map((p) => {
+            return p['name'];
+        });
+
+        let planetIndex = star_map.indexOf(name);
+
+        return this.stars(planetIndex);
+    }
+
+    /**
      * Find planet in schema by name
      *
      * @param name
      * @return {*}
      */
     findPlanet(name) {
-        let planetMap = this.system().planets.map((p) => {
+        let planet_map = this.system().planets.map((p) => {
             return p['name'];
         });
 
-        let planetIndex = planetMap.indexOf(name);
+        let planetIndex = planet_map.indexOf(name);
 
         return this.planets(planetIndex);
     }
@@ -167,8 +191,8 @@ export class CelestialFoundry {
      */
     createStar(star_schema) {
 
-        let radius = CelestialFoundry.parseNumberObject(this.star().radius)/1000; // to km
-        let mass   = CelestialFoundry.parseNumberObject(this.star().mass);
+        let radius = CelestialFoundry.parseNumberObject(star_schema.radius)/1000; // to km
+        let mass   = CelestialFoundry.parseNumberObject(star_schema.mass);
 
         return new Star({
                 position: {x: .0, y: this.getSystemPlaneY(), z: .0 },
