@@ -4,25 +4,28 @@
   "AU": {"baseValue": 1.496, "base": 10, "power": 8},
   "stars": [
     {
-      "name": "Sun",
-      "mass": {"baseValue": 1.988435, "base": 10, "power": 30},
+      "name":   "Sun",
+      "mass":   {"baseValue": 1.988435, "base": 10, "power": 30},
       "radius": {"baseValue": 6.957, "base": 10, "power": 8}
 
     }
   ],
   "planets": [
     {
-      "name": "Earth",
-      "mass": {"baseValue": 5.9721986, "base": 10, "power": 24},
-      "radius": {"baseValue": 6.3710088, "base": 10, "power": 6}
+      "name":   "Earth",
+      "mass":   {"baseValue": 5.9721986, "base": 10, "power": 24},
+      "radius": {"baseValue": 6.3710088, "base": 10, "power": 6},
+      "orbit":  0.01
     },{
-      "name": "Jupiter",
-      "mass": {"baseValue": 1.89813, "base": 10, "power": 27},
-      "radius": {"baseValue": 6.991, "base": 10, "power": 7}
+      "name":   "Jupiter",
+      "mass":   {"baseValue": 1.89813, "base": 10, "power": 27},
+      "radius": {"baseValue": 6.991, "base": 10, "power": 7},
+      "orbit":  0.02
     },{
-      "name": "Saturn",
-      "mass": {"baseValue": 5.68319, "base": 10, "power": 26},
-      "radius": {"baseValue": 5.7316, "base": 10, "power": 7}
+      "name":   "Saturn",
+      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
+      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
+      "orbit":  0.03
     }
   ]
 }

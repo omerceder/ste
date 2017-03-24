@@ -77,6 +77,10 @@ export class CelestialFoundry {
         return CelestialFoundry.parseNumberObject(this.system().AU);
     }
 
+    star() {
+        return this.system().stars[0];
+    }
+
     /**
      * Get planet meta information at index from default system schema
      *
@@ -122,13 +126,14 @@ export class CelestialFoundry {
      *
      * @param {Star} star
      * @param planet_name
-     * @param x
-     * @param z
      * @return {PlanetSystem}
      */
-    createPlanetSystem(star, planet_name, x,z) {
+    createPlanetSystem(star, planet_name) {
         let planet_schema = this.findPlanet(planet_name);
-        return new PlanetSystem(star, this.createPlanet(planet_schema, x, z));
+
+        let orbit_au = planet_schema.orbit * this.au();
+
+        return new PlanetSystem(star, this.createPlanet(planet_schema, orbit_au, orbit_au));
     }
 
     /**
@@ -140,12 +145,17 @@ export class CelestialFoundry {
      * @return {Planet}
      */
     createPlanet(planet_schema, x, z) {
-        let radius = CelestialFoundry.parseNumberObject(planet_schema.radius)/1000;
+
+        let radius = CelestialFoundry.parseNumberObject(planet_schema.radius)/1000; // to km
         let mass   = CelestialFoundry.parseNumberObject(planet_schema.mass);
 
         return new Planet({
             position: {x: x, y: this.getSystemPlaneY(), z: z},
-            geometry: {radius: radius},
+            geometry: {
+                radius:         radius,
+                widthSegments:  128,
+                heightSegments: 128
+            },
             physics:  {mass: mass}
         })
     }
@@ -155,9 +165,39 @@ export class CelestialFoundry {
      *
      * @return {Star}
      */
-    createStar() {
+    createStar(star_schema) {
+
+        let radius = CelestialFoundry.parseNumberObject(this.star().radius)/1000; // to km
+        let mass   = CelestialFoundry.parseNumberObject(this.star().mass);
+
         return new Star({
-            position:{x: .0, y: this.getSystemPlaneY(), z: .0 }
+                position: {x: .0, y: this.getSystemPlaneY(), z: .0 },
+                geometry: {
+                    radius:         radius,
+                    widthSegments:  128,
+                    heightSegments: 128
+                }
+            }, mass);
+    }
+
+    /**
+     * Create planets from default system
+     *
+     * @param {Star} star
+     * @return {Array}
+     */
+    createPlanets(star) {
+
+        let planet_map = this.system().planets.map((p) => {
+            return p['name'];
         });
+
+        let planets = [];
+
+        for(let planet_key of planet_map) {
+            planets.push(this.createPlanetSystem(star, planet_key));
+        }
+
+        return planets;
     }
 }

@@ -26,24 +26,10 @@ export class StarSystem {
         let star = cf.createStar();
 
         // Planets
-        const planets = [];
+        const planets = cf.createPlanets(star);
 
-        // TODO: read and generate from schema
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/30,  cf.au()/30));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/40,  cf.au()/40));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/50,  cf.au()/50));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/60,  cf.au()/60));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/70,  cf.au()/70));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/80,  cf.au()/80));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/90,  cf.au()/90));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/100, cf.au()/100));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/110, cf.au()/110));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/120, cf.au()/120));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/130, cf.au()/130));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/140, cf.au()/140));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/150, cf.au()/150));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/160, cf.au()/160));
-        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/170, cf.au()/170));
+        // console.log(planets[5].planet.setAngularVelocity(new THREE.Vector3(0.0, 7.292115*Math.pow(10,-5), 0.0)));
+        // console.log(planets[5].planet.applyForce(new THREE.Vector3(29800, 0.0, 29800 )));
 
         // Star Light
         // this.star_system_light = this.createStarLight();
@@ -55,9 +41,11 @@ export class StarSystem {
         this.system_point_light = StarSystem.createSystemPointLight(cf);
 
         // Set CelestialFoundry
-        this.cf = cf;
-        this.star = star;
-        this.planets = planets;
+        Object.assign(this, {
+            cf:      cf,
+            star:    star,
+            planets: planets
+        });
     }
 
     au() {

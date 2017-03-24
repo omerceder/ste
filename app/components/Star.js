@@ -6,22 +6,26 @@ import {
     SphereModule,
 } from '@ammo:modules';
 
-const STAR_SUN_MASS = 1.988435 * Math.pow(10,30);
-const STAR_SUN_RADIUS = 695700;
-
 /**
  * Star Class
  */
 export class Star extends Sphere {
 
-    constructor(params = {}) {
+    /**
+     * Real star mass
+     * @type {number}
+     */
+    realMass = 0.0;
+
+    /**
+     * Default constructor
+     *
+     * @param {Object} params
+     * @param {Number} real_mass
+     */
+    constructor(params = {}, real_mass) {
 
         let local_params = {
-            geometry: {
-                radius:         STAR_SUN_RADIUS,
-                widthSegments:  128,
-                heightSegments: 128
-            },
             modules: [
                 new SphereModule({
                     mass:        0,
@@ -35,9 +39,10 @@ export class Star extends Sphere {
         Object.assign(local_params, params);
 
         super(local_params);
+        this.realMass = real_mass;
     }
 
-    getMass() {
-        return STAR_SUN_MASS;
+    getRealMass() {
+        return this.realMass;
     }
 }

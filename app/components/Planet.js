@@ -16,10 +16,6 @@ export class Planet extends Sphere {
     constructor(params = {}) {
 
         let local_params = {
-            geometry: {
-                widthSegments:  128,
-                heightSegments: 128
-            },
             modules: [
                 new SphereModule({
                     mass:        params.physics.mass,

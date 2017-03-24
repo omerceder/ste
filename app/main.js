@@ -39,7 +39,7 @@ const game = new App([
         ammo: 'http://localhost:8080/node_modules/three/examples/js/libs/ammo.js',
         // wasmBuffer: 'http://localhost:8081/ammo.wasm',
         // ammo: 'http://localhost:8081/ammoloader.js',
-        gravity: new THREE.Vector3(-SUN_GRAVITY, -SUN_GRAVITY, -SUN_GRAVITY)
+        gravity: new THREE.Vector3(-SUN_GRAVITY, 0.0, -SUN_GRAVITY)
     }),
     new ElementModule({
         container: document.getElementById('app')
@@ -47,8 +47,8 @@ const game = new App([
     new SceneModule(),
     new CameraModule({
         position: {
-          y: cf.au()/50,
-          z: cf.au()/50,
+          y: cf.au()*0.05,
+          z: cf.au()*0.05,
         },
         far: cf.au()*3.0
     }),
