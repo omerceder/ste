@@ -2,6 +2,8 @@ import path from 'path';
 import webpack from 'webpack';
 import alias from 'whs/tools/alias';
 
+alias['@ammo:modules'] = 'physics-module-ammonext/src/modules';
+
 const ENV_PRODUCTION = process.env.NODE_ENV === 'production';
 
 const config = {

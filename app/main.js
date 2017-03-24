@@ -2,9 +2,10 @@
 import {App} from '@whs/core/App';
 
 // Physics
-import {WorldModule} from '../node_modules/physics-module-ammonext/src/modules/WorldModule';
-import {SphereModule} from '../node_modules/physics-module-ammonext/src/modules/SphereModule';
-import {PlaneModule} from '../node_modules/physics-module-ammonext/src/modules/PlaneModule';
+import {
+    WorldModule,
+    PlaneModule
+} from '@ammo:modules';
 
 // WHS Core Modules
 import {
@@ -20,25 +21,24 @@ import {
     AmbientLight
 } from '@whs+lights';
 
-// WHS Meshes
-import {
-    Sphere,
-    Plane
-} from '@whs+meshes';
-
 // Controls
 import {OrbitModule} from '@whs:controls/orbit';
 
-// Game modules
-import {FancyMaterialModule} from './modules/FancyMaterialModule';
-
 // Components
-import {BasicComponent} from './components/BasicComponent';
+import {
+    Plane
+} from '@whs+meshes';
+
+// Systems
+import {StarSystem} from './systems/StarSystem';
 
 // Game Instance
 const game = new App([
     new WorldModule({
-        ammo: 'http://localhost:8080/node_modules/three/examples/js/libs/ammo.js'
+        ammo: 'http://localhost:8080/node_modules/three/examples/js/libs/ammo.js',
+        // wasmBuffer: 'http://localhost:8081/ammo.wasm',
+        // ammo: 'http://localhost:8081/ammoloader.js',
+        gravity: new THREE.Vector3(0, 0, 0)
     }),
     new ElementModule({
         container: document.getElementById('app')
@@ -46,50 +46,20 @@ const game = new App([
     new SceneModule(),
     new CameraModule({
         position: {
-          y: 60,
-          z: 60,
-        }
+          y: StarSystem.getAu()/50,
+          z: StarSystem.getAu()/50,
+        },
+        far: StarSystem.getAu()*3.0
     }),
     new RenderingModule({bgColor: 0x000001}),
     new OrbitModule()
 ]);
 
-new BasicComponent({
-    modules: [
-        new FancyMaterialModule(game)
-    ],
-    position: {
-        x: 0,
-        y: 10,
-        x: 0
-    },
-}).addTo(game);
-
-// Sphere + SphereModule
-new Sphere({
-    geometry: {
-        radius: 4,
-        widthSegments: 32,
-        heightSegments: 24
-    },
-    position: {
-        y: 70
-    },
-    modules: [
-        new SphereModule({
-            mass: 10,
-            restitution: 2.5
-        })
-    ],
-
-    material: new THREE.MeshNormalMaterial()
-}).addTo(game);
-
 // Plane
 new Plane({
     geometry: {
-        width:  100,
-        height: 100
+        width:  StarSystem.getAu()*2,
+        height: StarSystem.getAu()*2
     },
 
     modules: [
@@ -109,14 +79,14 @@ new Plane({
 new PointLight({
     light: {
         intensity: 0.5,
-        distance: 100
+        distance: StarSystem.getAu()
     },
 
     shadow: {
         fov: 90
     },
 
-    position: new THREE.Vector3(0, 10, 10)
+    position: new THREE.Vector3(StarSystem.getAu()/2, StarSystem.getAu()/2, StarSystem.getAu()/2)
 }).addTo(game);
 
 new AmbientLight({
@@ -124,5 +94,12 @@ new AmbientLight({
         intensity: 0.4
     }
 }).addTo(game);
+
+const star_system = new StarSystem();
+
+star_system.star.addTo(game);
+star_system.planets[0].addTo(game);
+
+
 
 game.start();
