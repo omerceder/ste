@@ -1,52 +1,163 @@
 import {Star} from '../components/Star';
 import {Planet} from '../components/Planet';
-
-// Sun
-const STAR_SUN_MASS = 1.988435 * Math.pow(10,30);
-const STAR_SUN_RADIUS = 695700;
-
-const DEFAULT_PLANET_RADIUS      = 6371.0088; // Earth
-const DEFAULT_PLANET_MASS        = 5.972 * Math.pow(10, 24); // Earth
-const DEFAULT_PLANET_RESTITUTION = 0.012; // Unknown ???
-
-// Earth
-const PLANET_EARTH_RADIUS      = 6371.0088;
-const PLANET_EARTH_MASS        = 5.972 * Math.pow(10, 24);
-const PLANET_EARTH_RESTITUTION = 0.012;
-
-// Jupiter
-const PLANET_JUPITER_RADIUS      = 69911.0;
-const PLANET_JUPITER_MASS        = 1988550.0 * Math.pow(10, 24);
-const PLANET_JUPITER_RESTITUTION = 0.012;
+import {PlanetSystem} from './PlanetSystem';
 
 /**
  * CelestialFoundry Class
  */
 export class CelestialFoundry {
 
-    static getPlanetRadius(planet_name) {
-
-        const planets = {
-            'sun':   PLANET_EARTH_RADIUS,
-            'earth': PLANET_EARTH_RADIUS
-        };
-
-        if( ! planets[planet_name]) {
-            throw `[CelestialFoundry]: No such planet ${planet_name}`
-        }
-
-        return planets[planet_name];
-
+    static parseNumberObject(number_object) {
+        return number_object.baseValue * Math.pow(number_object.base, number_object.power);
     }
 
-    static createPlanet(system_plane, x, z, radius = DEFAULT_PLANET_RADIUS) {
+    /**
+     * Default system schema key
+     * @type {null|string}
+     */
+    defaultSystemKey = null;
+
+    /**
+     * System schemas container
+     * @type {null|Object}
+     */
+    systemSchema = null;
+
+    /**
+     * Default constructor
+     *
+     * @param {null|Object} star_system_schema
+     */
+    constructor(star_system_schema = null) {
+
+        this.systemSchema = {};
+
+        if(star_system_schema !== null) {
+            if( ! star_system_schema.name) {
+                throw new Error(`[CelestialFoundry|ERROR]: Schema object does not contain name property!`);
+            }
+
+            this.systemSchema[star_system_schema.name] = star_system_schema;
+            this.defaultSystemKey = star_system_schema.name;
+        }
+    }
+
+    /**
+     * Load system schema from object using 'name' property as key
+     *
+     * @param {null|Object} star_system_schema
+     */
+    loadSystemSchema(star_system_schema) {
+
+        if( ! star_system_schema.name) {
+            throw new Error(`[CelestialFoundry|ERROR]: Schema object does not contain name property!`);
+        }
+
+        this.systemSchema[star_system_schema.name] = star_system_schema;
+    }
+
+    /**
+     * Get default system schema
+     *
+     * @return {*}
+     */
+    system() {
+        if (! this.systemSchema[this.defaultSystemKey]) {
+            throw new Error(`[CelestialFoundry|ERROR]: No schema for default system '${this.defaultSystemKey}'`);
+        }
+
+        return this.systemSchema[this.defaultSystemKey];
+    }
+
+    /**
+     *
+     * @return {*}
+     */
+    au() {
+        return CelestialFoundry.parseNumberObject(this.system().AU);
+    }
+
+    /**
+     * Get planet meta information at index from default system schema
+     *
+     * @param i
+     * @return {*}
+     */
+    planets(i) {
+
+        if ( ! this.system().planets[i]) {
+            throw new Error(`[CelestialFoundry|ERROR]: No planet at index ${i} system schema '${this.defaultSystemKey}'`);
+        }
+
+        return this.system().planets[i];
+    }
+
+    /**
+     * Get Y plane coordinate from default system schema
+     *
+     * @return {float}
+     */
+    getSystemPlaneY() {
+        return this.system().location.y;
+    }
+
+    /**
+     * Find planet in schema by name
+     *
+     * @param name
+     * @return {*}
+     */
+    findPlanet(name) {
+        let planetMap = this.system().planets.map((p) => {
+            return p['name'];
+        });
+
+        let planetIndex = planetMap.indexOf(name);
+
+        return this.planets(planetIndex);
+    }
+
+    /**
+     * Create a planet system object with it's parent star
+     *
+     * @param {Star} star
+     * @param planet_name
+     * @param x
+     * @param z
+     * @return {PlanetSystem}
+     */
+    createPlanetSystem(star, planet_name, x,z) {
+        let planet_schema = this.findPlanet(planet_name);
+        return new PlanetSystem(star, this.createPlanet(planet_schema, x, z));
+    }
+
+    /**
+     * Create planet component
+     *
+     * @param planet_schema
+     * @param x
+     * @param z
+     * @return {Planet}
+     */
+    createPlanet(planet_schema, x, z) {
+        let radius = CelestialFoundry.parseNumberObject(planet_schema.radius)/1000;
+        let mass   = CelestialFoundry.parseNumberObject(planet_schema.mass);
+
         return new Planet({
-            position: {x: x, y: system_plane, z: z},
-            geometry: {radius: radius}
+            position: {x: x, y: this.getSystemPlaneY(), z: z},
+            geometry: {radius: radius},
+            physics:  {mass: mass}
         })
     }
 
-    static createStar(system_plane) {
-        return new Star({position:{x: .0, y: system_plane, z: .0 }});
+    /**
+     * Create star component
+     *
+     * @return {Star}
+     */
+    createStar() {
+        return new Star({
+            position:{x: .0, y: this.getSystemPlaneY(), z: .0 }
+        });
     }
 }

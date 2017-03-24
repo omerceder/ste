@@ -24,7 +24,7 @@ export class Star extends Sphere {
             },
             modules: [
                 new SphereModule({
-                    mass:        STAR_SUN_MASS,
+                    mass:        0,
                     restitution: 0.0001
                 })
             ],
@@ -35,5 +35,9 @@ export class Star extends Sphere {
         Object.assign(local_params, params);
 
         super(local_params);
+    }
+
+    getMass() {
+        return STAR_SUN_MASS;
     }
 }

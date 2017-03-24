@@ -6,7 +6,6 @@ import {
     SphereModule,
 } from '@ammo:modules';
 
-const DEFAULT_PLANET_MASS        = 5.972 * Math.pow(10, 24); // Earth
 const DEFAULT_PLANET_RESTITUTION = 0.012; // Unknown ???
 
 /**
@@ -23,7 +22,7 @@ export class Planet extends Sphere {
             },
             modules: [
                 new SphereModule({
-                    mass:        DEFAULT_PLANET_MASS,
+                    mass:        params.physics.mass,
                     restitution: DEFAULT_PLANET_RESTITUTION
                 })
             ],

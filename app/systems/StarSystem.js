@@ -1,5 +1,4 @@
 import {CelestialFoundry} from './CelestialFoundry';
-import {PlanetSystem} from './PlanetSystem';
 
 import {
     PlaneModule
@@ -14,49 +13,56 @@ import {
     HemisphereLight
 } from '@whs+lights';
 
-const AU = 1.496 * Math.pow(10,8);
-
-const SYSTEM_PLANE = 0.0;
-
-const cf = new CelestialFoundry();
-
 /**
  * StarSystem Class
  */
 export class StarSystem {
-
-    constructor(starParams = {}, planets = []) {
-
+    /**
+     *
+     * @param {CelestialFoundry} cf
+     */
+    constructor(cf) {
         // Star
-        this.star = CelestialFoundry.createStar(SYSTEM_PLANE);
+        let star = cf.createStar();
 
         // Planets
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/30, AU/30)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/40, AU/40)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/50, AU/50)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/60, AU/60)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/70, AU/70)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/80, AU/80)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/90, AU/90)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/100, AU/100)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/110, AU/110)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/120, AU/120)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/130, AU/130)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/140, AU/140)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/150, AU/150)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/160, AU/160)));
-        planets.push(new PlanetSystem(CelestialFoundry.createPlanet(SYSTEM_PLANE, AU/170, AU/170, 12000)));
-        
-        this.planets = planets;
+        const planets = [];
+
+        // TODO: read and generate from schema
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/30,  cf.au()/30));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/40,  cf.au()/40));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/50,  cf.au()/50));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/60,  cf.au()/60));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/70,  cf.au()/70));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/80,  cf.au()/80));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/90,  cf.au()/90));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/100, cf.au()/100));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/110, cf.au()/110));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/120, cf.au()/120));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/130, cf.au()/130));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/140, cf.au()/140));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/150, cf.au()/150));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/160, cf.au()/160));
+        planets.push(cf.createPlanetSystem(star, 'Earth', cf.au()/170, cf.au()/170));
 
         // Star Light
-        // this.star_system_light = StarSystem.createStarLight();
+        // this.star_system_light = this.createStarLight();
 
         // System Plane
-        this.system_helper_plane = StarSystem.createSystemHelperPlane();
+        this.system_helper_plane = StarSystem.createSystemHelperPlane(cf);
 
         // System Lights
-        this.system_point_light = StarSystem.createSystemPointLight();
+        this.system_point_light = StarSystem.createSystemPointLight(cf);
+
+        // Set CelestialFoundry
+        this.cf = cf;
+        this.star = star;
+        this.planets = planets;
+    }
+
+    au() {
+        console.log(this);
+        return this.cf.au();
     }
 
     addTo(game) {
@@ -72,11 +78,11 @@ export class StarSystem {
         }
     }
 
-    static createSystemHelperPlane() {
+    static createSystemHelperPlane(cf) {
         return new Plane({
             geometry: {
-                width:  StarSystem.getAu()*2,
-                height: StarSystem.getAu()*2,
+                width:  cf.au()*2,
+                height: cf.au()*2,
                 wSegments:  128,
                 hSegments:  128
             },
@@ -95,18 +101,18 @@ export class StarSystem {
         });
     }
 
-    static createSystemPointLight() {
+    static createSystemPointLight(cf) {
         return new PointLight({
             light: {
                 intensity: 0.5,
-                distance: StarSystem.getAu()
+                distance: cf.au()
             },
 
             shadow: {
                 fov: 90
             },
 
-            position: new THREE.Vector3(StarSystem.getAu()/100, StarSystem.getAu()/75, StarSystem.getAu()/100)
+            position: new THREE.Vector3(cf.au()/100, cf.au()/75, cf.au()/100)
         });
     }
 
@@ -116,12 +122,8 @@ export class StarSystem {
 
         // hemiLight.color.setHSL( 0.6, 1, 0.6 );
         // hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
-        // hemiLight.position.set( StarSystem.getAu()/70, StarSystem.getAu()/70, StarSystem.getAu()/70 );
+        // hemiLight.position.set( this.au()/70, this.au()/70, this.au()/70 );
 
         // return hemiLight;
-    }
-
-    static getAu() {
-        return AU;
     }
 }
