@@ -174,8 +174,8 @@ export class CelestialFoundry {
                 position: {x: .0, y: this.getSystemPlaneY(), z: .0 },
                 geometry: {
                     radius:         radius,
-                    widthSegments:  128,
-                    heightSegments: 128
+                    widthSegments:  256,
+                    heightSegments: 256
                 }
             }, mass);
     }
