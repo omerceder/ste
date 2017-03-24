@@ -6,7 +6,6 @@ import {
     SphereModule,
 } from '@ammo:modules';
 
-const DEFAULT_PLANET_RADIUS      = 6371.0088; // Earth
 const DEFAULT_PLANET_MASS        = 5.972 * Math.pow(10, 24); // Earth
 const DEFAULT_PLANET_RESTITUTION = 0.012; // Unknown ???
 
@@ -19,7 +18,6 @@ export class Planet extends Sphere {
 
         let local_params = {
             geometry: {
-                radius:         DEFAULT_PLANET_RADIUS,
                 widthSegments:  128,
                 heightSegments: 128
             },

@@ -1,9 +1,5 @@
 import {Planet} from '../components/Planet';
 
-const PLANET_EARTH_RADIUS      = 6371.0088;
-const PLANET_EARTH_MASS        = 5.972 * Math.pow(10, 24);
-const PLANET_EARTH_RESTITUTION = 0.012;
-
 /**
  * PlanetSystem Class
  */
