@@ -26,20 +26,21 @@ import {OrbitModule} from '@whs:controls/orbit';
 import {StarSystem} from './systems/StarSystem';
 import {CelestialFoundry} from './systems/CelestialFoundry';
 
+// System Schema
 import SolSystemSchema from '../assets/st_sol.json';
-
-const SUN_GRAVITY = 273.95; // m/s^2 (meters per second squared)
 
 // Game Instance
 
 const cf = new CelestialFoundry(SolSystemSchema);
+
+const sun_gravity = cf.findStar('Sun').gravity;
 
 const game = new App([
     new WorldModule({
         ammo: 'http://localhost:8080/node_modules/three/examples/js/libs/ammo.js',
         // wasmBuffer: 'http://localhost:8081/ammo.wasm',
         // ammo: 'http://localhost:8081/ammoloader.js',
-        gravity: new THREE.Vector3(-SUN_GRAVITY, 0.0, -SUN_GRAVITY)
+        gravity: new THREE.Vector3(-sun_gravity, 0.0, -sun_gravity)
     }),
     new ElementModule({
         container: document.getElementById('app')

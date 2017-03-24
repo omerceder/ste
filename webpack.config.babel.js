@@ -42,7 +42,7 @@ const config = {
                 test: /\.(glsl|frag|vert)$/, loader: 'glslify-loader', exclude: /node_modules/
             },
             {
-                test: /\.json$/, loader: "json", include: /assets/
+                test: /\.json$/, loader: "json-loader", include: /assets/
             }
         ]
     },

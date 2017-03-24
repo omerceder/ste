@@ -77,10 +77,6 @@ export class CelestialFoundry {
         return CelestialFoundry.parseNumberObject(this.system().AU);
     }
 
-    star() {
-        return this.system().stars[0];
-    }
-
     /**
      * Get planet meta information at index from default system schema
      *

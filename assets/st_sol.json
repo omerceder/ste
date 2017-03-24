@@ -4,10 +4,10 @@
   "AU": {"baseValue": 1.496, "base": 10, "power": 8},
   "stars": [
     {
-      "name":   "Sun",
-      "mass":   {"baseValue": 1.988435, "base": 10, "power": 30},
-      "radius": {"baseValue": 6.957, "base": 10, "power": 8}
-
+      "name":    "Sun",
+      "mass":    {"baseValue": 1.988435, "base": 10, "power": 30},
+      "radius":  {"baseValue": 6.957, "base": 10, "power": 8},
+      "gravity": 273.95
     }
   ],
   "planets": [
@@ -23,6 +23,41 @@
       "orbit":  0.02
     },{
       "name":   "Saturn",
+      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
+      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
+      "orbit":  0.03
+    },{
+      "name":   "Venus",
+      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
+      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
+      "orbit":  0.03
+    },{
+      "name":   "Mercury",
+      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
+      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
+      "orbit":  0.03
+    },{
+      "name":   "Mars",
+      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
+      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
+      "orbit":  0.03
+    },{
+      "name":   "Uranus",
+      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
+      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
+      "orbit":  0.03
+    },{
+      "name":   "Neptune",
+      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
+      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
+      "orbit":  0.03
+    },{
+      "name":   "Neptune",
+      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
+      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
+      "orbit":  0.03
+    },{
+      "name":   "Pluto",
       "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
       "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
       "orbit":  0.03
