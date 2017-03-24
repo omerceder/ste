@@ -9,9 +9,15 @@ const PLANET_EARTH_RESTITUTION = 0.012;
  */
 export class PlanetSystem {
 
-    constructor() {
+    constructor(planet) {
         const G = 6.67384e-11; // m3 kg-1 s-2
         this.G = G;
+
+        this.planet = planet;
+    }
+
+    addTo(game) {
+        this.planet.addTo(game);
     }
 
     getAcceleration(distance, starMass) {

@@ -3,8 +3,7 @@ import {App} from '@whs/core/App';
 
 // Physics
 import {
-    WorldModule,
-    PlaneModule
+    WorldModule
 } from '@ammo:modules';
 
 // WHS Core Modules
@@ -17,17 +16,11 @@ import {
 
 // WHS Lights
 import {
-    PointLight,
     AmbientLight
 } from '@whs+lights';
 
 // Controls
 import {OrbitModule} from '@whs:controls/orbit';
-
-// Components
-import {
-    Plane
-} from '@whs+meshes';
 
 // Systems
 import {StarSystem} from './systems/StarSystem';
@@ -55,51 +48,23 @@ const game = new App([
     new OrbitModule()
 ]);
 
-// Plane
-new Plane({
-    geometry: {
-        width:  StarSystem.getAu()*2,
-        height: StarSystem.getAu()*2
-    },
+// Star System
+const star_system = new StarSystem();
 
-    modules: [
-        new PlaneModule({
-            mass: 0
-        })
-    ],
+// System Plane
+const system_helper_plane = StarSystem.createSystemHelperPlane().addTo(game);
+// System Lights
+const system_point_light = StarSystem.createSystemPointLight().addTo(game);
 
-    material: new THREE.MeshPhongMaterial({color: 0x447F8B}),
-
-    rotation: {
-        x: -Math.PI / 2
-    }
-}).addTo(game);
-
-// Lights
-new PointLight({
-    light: {
-        intensity: 0.5,
-        distance: StarSystem.getAu()
-    },
-
-    shadow: {
-        fov: 90
-    },
-
-    position: new THREE.Vector3(StarSystem.getAu()/2, StarSystem.getAu()/2, StarSystem.getAu()/2)
-}).addTo(game);
-
-new AmbientLight({
+// Global light
+const global_ambient_light = new AmbientLight({
     light: {
         intensity: 0.4
     }
 }).addTo(game);
 
-const star_system = new StarSystem();
+// Add star system to game
+star_system.addTo(game);
 
-star_system.star.addTo(game);
-star_system.planets[0].addTo(game);
-
-
-
+// Start game
 game.start();
