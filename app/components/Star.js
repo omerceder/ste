@@ -10,10 +10,9 @@ import {
  * Star Class
  */
 export class Star extends Sphere {
-
     /**
      * Real star mass
-     * @type {number}
+     * @type {Number}
      */
     realMass = 0.0;
 
@@ -42,6 +41,11 @@ export class Star extends Sphere {
         this.realMass = real_mass;
     }
 
+    /**
+     * Get real mass of star object since it's physics mass might be 0.0
+     *
+     * @return {Number}
+     */
     getRealMass() {
         return this.realMass;
     }

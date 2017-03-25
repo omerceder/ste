@@ -6,20 +6,25 @@ import {PlanetSystem} from './PlanetSystem';
  * CelestialFoundry Class
  */
 export class CelestialFoundry {
-
+    /**
+     * Parse an object represented by base value, baseValue, power.
+     *
+     * @param number_object
+     * @return {Number}
+     */
     static parseNumberObject(number_object) {
         return number_object.baseValue * Math.pow(number_object.base, number_object.power);
     }
 
     /**
      * Default system schema key
-     * @type {null|string}
+     * @type {null|String}
      */
     defaultSystemKey = null;
 
     /**
      * Default star schema key
-     * @type {null|string}
+     * @type {null|String}
      */
     defaultStarKey = null;
 
@@ -33,7 +38,7 @@ export class CelestialFoundry {
      * Default constructor
      *
      * @param {null|Object} star_system_schema
-     * @param {null|string} default_star_key
+     * @param {null|String} default_star_key
      */
     constructor(star_system_schema = null, default_star_key = null) {
 
@@ -70,7 +75,7 @@ export class CelestialFoundry {
     /**
      * Get default system schema
      *
-     * @return {*}
+     * @return {Object}
      */
     system() {
         if (! this.systemSchema[this.defaultSystemKey]) {
@@ -81,13 +86,19 @@ export class CelestialFoundry {
     }
 
     /**
+     * Return default system AU unit
      *
-     * @return {*}
+     * @return {Number}
      */
     au() {
         return CelestialFoundry.parseNumberObject(this.system().AU);
     }
 
+    /**
+     * Return default star gravity
+     *
+     * @return {Vector3|THREE.Vector3|p.Vector3|*}
+     */
     g() {
         return this.findStar(this.defaultStarKey).gravity;
     }
@@ -96,7 +107,7 @@ export class CelestialFoundry {
      * Get planet meta information at index from default system schema
      *
      * @param i
-     * @return {*}
+     * @return {Object}
      */
     planets(i) {
 
@@ -107,6 +118,12 @@ export class CelestialFoundry {
         return this.system().planets[i];
     }
 
+    /**
+     * Get star meta information at index from default system schema
+     *
+     * @param i
+     * @return {Object}
+     */
     stars(i) {
         if ( ! this.system().stars[i]) {
             throw new Error(`[CelestialFoundry|ERROR]: No stars at index ${i} system schema '${this.defaultSystemKey}'`);
@@ -118,7 +135,7 @@ export class CelestialFoundry {
     /**
      * Get Y plane coordinate from default system schema
      *
-     * @return {float}
+     * @return {Number}
      */
     getSystemPlaneY() {
         return this.system().location.y;
@@ -128,7 +145,7 @@ export class CelestialFoundry {
      * Find star in schema by name
      *
      * @param name
-     * @return {*}
+     * @return {Object}
      */
     findStar(name) {
         let star_map = this.system().stars.map((p) => {
@@ -144,7 +161,7 @@ export class CelestialFoundry {
      * Find planet in schema by name
      *
      * @param name
-     * @return {*}
+     * @return {Object}
      */
     findPlanet(name) {
         let planet_map = this.system().planets.map((p) => {
@@ -160,7 +177,7 @@ export class CelestialFoundry {
      * Create a planet system object with it's parent star
      *
      * @param {Star} star
-     * @param planet_name
+     * @param {String} planet_name
      * @return {PlanetSystem}
      */
     createPlanetSystem(star, planet_name) {
@@ -174,9 +191,9 @@ export class CelestialFoundry {
     /**
      * Create planet component
      *
-     * @param planet_schema
-     * @param x
-     * @param z
+     * @param {String} planet_schema
+     * @param {Number} x
+     * @param {Number} z
      * @return {Planet}
      */
     createPlanet(planet_schema, x, z) {

@@ -12,7 +12,11 @@ const DEFAULT_PLANET_RESTITUTION = 0.012; // Unknown ???
  * Planet Class
  */
 export class Planet extends Sphere {
-
+    /**
+     * Default constructor
+     *
+     * @param {Object} params
+     */
     constructor(params = {}) {
 
         let local_params = {
