@@ -55,9 +55,6 @@ const game = new App([
     new OrbitModule()
 ]);
 
-// Star System
-const star_system = new StarSystem(cf);
-
 // Global light
 const global_ambient_light = new AmbientLight({
     light: {
@@ -65,7 +62,8 @@ const global_ambient_light = new AmbientLight({
     }
 }).addTo(game);
 
-// Add star system to game
+// Star System
+const star_system = new StarSystem(cf);
 star_system.addTo(game);
 
 // Start game
