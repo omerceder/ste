@@ -15,52 +15,47 @@
       "name":   "Earth",
       "mass":   {"baseValue": 5.9721986, "base": 10, "power": 24},
       "radius": {"baseValue": 6.3710088, "base": 10, "power": 6},
-      "orbit":  0.01
+      "orbit":  1.0
     },{
       "name":   "Jupiter",
       "mass":   {"baseValue": 1.89813, "base": 10, "power": 27},
       "radius": {"baseValue": 6.991, "base": 10, "power": 7},
-      "orbit":  0.02
+      "orbit":  5.456
     },{
       "name":   "Saturn",
       "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
       "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
-      "orbit":  0.03
+      "orbit":  10.05
     },{
       "name":   "Venus",
-      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
-      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
-      "orbit":  0.03
+      "mass":   {"baseValue": 4.86732, "base": 10, "power": 24},
+      "radius": {"baseValue": 6.0519, "base": 10, "power": 6},
+      "orbit":  0.7204
     },{
       "name":   "Mercury",
-      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
-      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
-      "orbit":  0.03
+      "mass":   {"baseValue": 3.30104, "base": 10, "power": 23},
+      "radius": {"baseValue": 2.4397, "base": 10, "power": 6},
+      "orbit":  0.3083
     },{
       "name":   "Mars",
-      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
-      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
-      "orbit":  0.03
+      "mass":   {"baseValue": 6.41693, "base": 10, "power": 23},
+      "radius": {"baseValue": 3.386, "base": 10, "power": 6},
+      "orbit":  1.504
     },{
       "name":   "Uranus",
-      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
-      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
-      "orbit":  0.03
+      "mass":   {"baseValue": 8.68103, "base": 10, "power": 25},
+      "radius": {"baseValue": 2.5266, "base": 10, "power": 7},
+      "orbit":  19.93
     },{
       "name":   "Neptune",
-      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
-      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
-      "orbit":  0.03
-    },{
-      "name":   "Neptune",
-      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
-      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
-      "orbit":  0.03
+      "mass":   {"baseValue": 1.0241, "base": 10, "power": 26},
+      "radius": {"baseValue": 2.4553, "base": 10, "power": 7},
+      "orbit":  29.95
     },{
       "name":   "Pluto",
-      "mass":   {"baseValue": 5.68319, "base": 10, "power": 26},
-      "radius": {"baseValue": 5.7316, "base": 10, "power": 7},
-      "orbit":  0.03
+      "mass":   {"baseValue": 1.309, "base": 10, "power": 22},
+      "radius": {"baseValue": 1.185, "base": 10, "power": 6},
+      "orbit":  33.3
     }
   ]
 }

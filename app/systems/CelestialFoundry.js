@@ -18,6 +18,12 @@ export class CelestialFoundry {
     defaultSystemKey = null;
 
     /**
+     * Default star schema key
+     * @type {null|string}
+     */
+    defaultStarKey = null;
+
+    /**
      * System schemas container
      * @type {null|Object}
      */
@@ -27,8 +33,9 @@ export class CelestialFoundry {
      * Default constructor
      *
      * @param {null|Object} star_system_schema
+     * @param {null|string} default_star_key
      */
-    constructor(star_system_schema = null) {
+    constructor(star_system_schema = null, default_star_key = null) {
 
         this.systemSchema = {};
 
@@ -39,6 +46,10 @@ export class CelestialFoundry {
 
             this.systemSchema[star_system_schema.name] = star_system_schema;
             this.defaultSystemKey = star_system_schema.name;
+
+            if(default_star_key !== null) {
+                this.defaultStarKey = default_star_key;
+            }
         }
     }
 
@@ -75,6 +86,10 @@ export class CelestialFoundry {
      */
     au() {
         return CelestialFoundry.parseNumberObject(this.system().AU);
+    }
+
+    g() {
+        return this.findStar(this.defaultStarKey).gravity;
     }
 
     /**

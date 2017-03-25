@@ -29,18 +29,16 @@ import {CelestialFoundry} from './systems/CelestialFoundry';
 // System Schema
 import SolSystemSchema from '../assets/st_sol.json';
 
+// Celestial Foundry Object
+const cf = new CelestialFoundry(SolSystemSchema, 'Sun');
+
 // Game Instance
-
-const cf = new CelestialFoundry(SolSystemSchema);
-
-const sun_gravity = cf.findStar('Sun').gravity;
-
 const game = new App([
     new WorldModule({
         ammo: 'http://localhost:8080/node_modules/three/examples/js/libs/ammo.js',
         // wasmBuffer: 'http://localhost:8081/ammo.wasm',
         // ammo: 'http://localhost:8081/ammoloader.js',
-        gravity: new THREE.Vector3(-sun_gravity, 0.0, -sun_gravity)
+        gravity: new THREE.Vector3(-cf.g(), 0.0, -cf.g())
     }),
     new ElementModule({
         container: document.getElementById('app')
@@ -48,10 +46,10 @@ const game = new App([
     new SceneModule(),
     new CameraModule({
         position: {
-          y: cf.au()*0.05,
-          z: cf.au()*0.05,
+          y: cf.au()*1.0,
+          z: cf.au()*1.0,
         },
-        far: cf.au()*3.0
+        far: cf.au()*10.0
     }),
     new RenderingModule({bgColor: 0x000001}),
     new OrbitModule()
